@@ -5,12 +5,12 @@
         <h2 class="mb-4 text-primary">Ajouter votre Projet</h2>
       </div>
 
-<form [formGroup]="projetForm" (ngSubmit)="onSubmit()" class="example-form">
+<form [formGroup]="projetForm" (ngSubmit)="saveData()" class="example-form">
   <div class="form-group">
   <mat-form-field class="example-full-width">
     <mat-label>Titre du Projet</mat-label>
     <input type="text" formControlName="titre" class="form-control" matInput placeholder="Ex. de projet" value="">
-    <div class="text-danger">{{ showErrorMessage("title") }}</div>
+    <div class="text-danger">{{ showErrorMessage("titre") }}</div>
   </mat-form-field>
 </div>
 
@@ -44,5 +44,76 @@
 </div>
 </form>
     </div>
+<div class="container">
+  <!--Reste du code -->
+        <form [formGroup]="projetForm" (ngSubmit)="saveData()">
+   <!--Reste du code -->
+  <br /><br />
+  <!-- Tableau d’affichage -->
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col" class="col">Titre</th>
+          <th scope="col" class="col">Description</th>
+          <th scope="col" class="col">Image</th>
+          <th scope="col" class="col">Likes</th>
+          <th scope="col" class="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of projetData | async">
+          <td class="col">{{ data.titre }}</td>
+          <td
+            style="
+              max-width: 100px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            "
+            class="col"
+          >
+            {{ data.description }}
+          </td>
+          <!-- <td class="col">{{ data.description | truncate : 70 }}</td> -->
+          <td class="col">
+            <img [src]="data.imageUrl" alt="Image" width="100" />
+          </td>
+          <td>{{ data.likes }}</td>
+          <td class="col">
+            <button
+              type="button"
+              class="btn btn-primary margin-left"
+              (click)="editData(data)"
+            >
+              Edit
+            </button>
+            &nbsp;
+            <button
+              *ngIf="data?.id"
+              type="button"
+              class="btn btn-danger margin-left"
+              (click)="deleteData(data.id!)"
+              style="margin-right:12px;"
+            >
+              Delete
+            </button>
+            <button
+              *ngIf="data?.id"
+              type="button"
+              class="btn btn-secondary"
+              (click)="navigateToDetails(data.id!)"
+            >
+              Details
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary position-absolute end-0" routerLink="/gallery">
+      Voir Gallery
+    </button>
   </div>
-</div>
+  <br><br><br>  <br><br><br>
+
+
