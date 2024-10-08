@@ -23,8 +23,18 @@
     <div class="text-danger">{{ showErrorMessage("description") }}</div>
   </mat-form-field>
 </div>
-
-<div class="form-group">
+<div class="form-control mt-3">
+  <label>Veuillez indiquer la date de création:</label>
+          <input
+            type="date"
+            formControlName="createdAt"
+            class="form-control nombre"
+          />
+          <div class="number-danger">
+            {{ showErrorMessage("createdAt | date") }}
+          </div>
+</div>
+<div class="form-group mt-3">
   <label for="file">Choisir photo : </label>
   <input
     type="file"
@@ -34,7 +44,8 @@
   />
 </div>
 
-<div class="form-group">
+
+<div class="form-group mt-3">
 
     <div class="example-button-row">
       <button   type="submit"
@@ -54,6 +65,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
+          <th scope="col" class="col">Date de création</th>
           <th scope="col" class="col">Titre</th>
           <th scope="col" class="col">Description</th>
           <th scope="col" class="col">Image</th>
@@ -63,6 +75,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of projetData | async">
+          <td class="col">{{ data.createdAt }} </td>
           <td class="col">{{ data.titre }}</td>
           <td
             style="

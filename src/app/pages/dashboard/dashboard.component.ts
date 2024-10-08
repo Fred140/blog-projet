@@ -8,6 +8,10 @@ import { FormsModule } from  '@angular/forms' ;
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {provideNativeDateAdapter} from '@angular/material/core';
+
+
 import { Observable } from 'rxjs';
 import { Projet } from '../../models/projet.model';
 import { AuthService } from '../../services/auth.service';
@@ -19,7 +23,9 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatFormFieldModule, MatSelectModule, MatInputModule, ReactiveFormsModule, FormsModule, MatIconModule, MatDividerModule, MatButtonModule, CommonModule],
+  providers: [provideNativeDateAdapter()],
+  imports: [MatFormFieldModule, MatSelectModule, MatInputModule, ReactiveFormsModule,
+    FormsModule, MatIconModule, MatDividerModule, MatButtonModule, CommonModule, MatDatepickerModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -39,6 +45,7 @@ export class DashboardComponent {
     ) {
     this.projetForm = this.fb.group({
       id: [null],
+      createdAt: [''],
       titre: ['', [Validators.required, Validators.minLength(7)]],
       description: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(3000)]],
       imageUrl: [''],
@@ -114,7 +121,7 @@ export class DashboardComponent {
     }
   }
   resetForm() {
-      this.projetForm.reset({ likes: 0, imageUrl: '', description: '', titre: '' });
+      this.projetForm.reset({ likes: 0, imageUrl: '', description: '', titre: '', createdAt: '' });
       this.selectedFile = null;
       this.isEditing = false;
     }
