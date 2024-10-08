@@ -1,1 +1,48 @@
-<p>dashboard works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="text-center mt-4">
+        <h2 class="mb-4 text-primary">Ajouter votre Projet</h2>
+      </div>
+
+<form [formGroup]="projetForm" (ngSubmit)="onSubmit()" class="example-form">
+  <div class="form-group">
+  <mat-form-field class="example-full-width">
+    <mat-label>Titre du Projet</mat-label>
+    <input type="text" formControlName="titre" class="form-control" matInput placeholder="Ex. de projet" value="">
+    <div class="text-danger">{{ showErrorMessage("title") }}</div>
+  </mat-form-field>
+</div>
+
+<div class="form-group">
+  <mat-form-field class="example-full-width">
+    <mat-label>Description du projet</mat-label>
+    <textarea  type="textarea"
+    formControlName="description"
+    class="form-control" matInput placeholder="Ex. description du projet"></textarea>
+    <div class="text-danger">{{ showErrorMessage("description") }}</div>
+  </mat-form-field>
+</div>
+
+<div class="form-group">
+  <label for="file">Choisir photo : </label>
+  <input
+    type="file"
+    class="form-control-file"
+    id="file"
+    (change)="onFileSelected($event)"
+  />
+</div>
+
+<div class="form-group">
+
+    <div class="example-button-row">
+      <button   type="submit"
+      class="btn btn-primary"
+      [disabled]="!projetForm.valid || !projetForm.touched" mat-flat-button>Valider</button>
+    </div>
+</div>
+</form>
+    </div>
+  </div>
+</div>
