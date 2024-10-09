@@ -17,7 +17,10 @@ import { CommonModule } from '@angular/common';
 export class GalleryProjetComponent {
   projetData!: Observable<Projet[]>;
   selectedImage: Projet | null = null;
-
+  visible?: true;
+  galleryservice: any;
+  visibleProjets: Projet[] = [];
+  validatedText: string = '';
 
   constructor(private firestore: Firestore, private router: Router, private galleryService: GalleryService) { }
 
@@ -33,7 +36,7 @@ export class GalleryProjetComponent {
         titre: data['titre'],
         description: data['description'],
         imageUrl: data['imageUrl'],
-        likes: data['likes']
+        likes: data['likes'],
       }) as Projet))
     );
   }
@@ -45,5 +48,4 @@ export class GalleryProjetComponent {
   navigateToDetails(id: string) {
     this.router.navigate(['/details', id]);
   }
-
 }

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -10,7 +10,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
-
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { Observable } from 'rxjs';
 import { Projet } from '../../models/projet.model';
@@ -19,6 +20,8 @@ import { GalleryService } from '../../services/gallery.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DatePipe } from '@angular/common';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -26,7 +29,8 @@ import { DatePipe } from '@angular/common';
   standalone: true,
   providers: [provideNativeDateAdapter(), DatePipe],
   imports: [MatFormFieldModule, MatSelectModule, MatInputModule, ReactiveFormsModule,
-    FormsModule, MatIconModule, MatDividerModule, MatButtonModule, CommonModule, MatDatepickerModule, RouterLink],
+    FormsModule, MatIconModule, MatDividerModule, MatButtonModule, CommonModule,
+     MatDatepickerModule, RouterLink, MatTableModule, MatSlideToggleModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -34,13 +38,13 @@ import { DatePipe } from '@angular/common';
 
 
 export class DashboardComponent {
+  projets: Projet[] = [];
   projetForm: FormGroup;
   selectedFile: any;
   isEditing: boolean = false;
   projetData!: Observable<Projet[]>;
-  ngOnInit(): void {
-    this.getData();
-  }
+  Firestore: any;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -48,14 +52,20 @@ export class DashboardComponent {
     ) {
     this.projetForm = this.fb.group({
       id: [null],
-      createdAt: [''],
+      createdAt: ['', [Validators.required]],
       titre: ['', [Validators.required, Validators.minLength(7)]],
       description: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(3000)]],
       imageUrl: [''],
       likes: [0],
-      visible: [false],
+      visible: ['false'],
     });
   }
+
+  ngOnInit(): void {
+    this.getData();
+  }
+
+
   hasError(fieldName: string, errorName: string) {
     const fieldErrors = this.projetForm.get(fieldName)?.errors;
     return fieldErrors ? fieldErrors[errorName] : false;
@@ -132,4 +142,5 @@ export class DashboardComponent {
   navigateToDetails(id: string) {
     this.router.navigate(['/details:id']);
   }
+
 }

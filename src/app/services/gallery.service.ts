@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, deleteDoc, doc, increment, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, deleteDoc, doc, getDocs, increment, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { Projet } from '../models/projet.model';
 import { Observable } from 'rxjs';
 
@@ -42,4 +42,22 @@ export class GalleryService {
         console.error('Cannot like a projet without ID');
       }
     }
+
+      // Récupérer uniquement les projets visibles
+  async getVisibleProjets(): Promise<Projet[]> {
+    const projetsCollection = collection(this.firestore, 'projet');
+    const visibleProjetsQuery = query(projetsCollection, where('visible', '==', true));
+    const visibleProjetsSnapshot = await getDocs(visibleProjetsQuery);
+    const visibleProjetsList = visibleProjetsSnapshot.docs.map(doc => {
+      return { id: doc.id, ...doc.data() } as Projet;
+    });
+    return visibleProjetsList;
+  }
+
+   // Mettre à jour la visibilité d'un projet
+
+   async updateProjetVisibility(projetId: string, visible: boolean): Promise<void> {
+    const projetDoc = doc(this.firestore, 'projet', projetId);
+    await updateDoc(projetDoc, { visible });
+  }
 }

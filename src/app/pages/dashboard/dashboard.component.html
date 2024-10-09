@@ -5,7 +5,7 @@
         <h2 class="mb-4 text-primary">Ajouter votre Projet</h2>
       </div>
 
-<form [formGroup]="projetForm" (ngSubmit)="saveData()" class="example-form">
+<form [formGroup]="projetForm" (ngSubmit)="saveData()"  class="example-form" >
   <div class="form-group">
   <mat-form-field class="example-full-width">
     <mat-label>Titre du Projet</mat-label>
@@ -56,8 +56,6 @@
 </form>
     </div>
 <div class="container">
-  <!--Reste du code -->
-        <form [formGroup]="projetForm" (ngSubmit)="saveData()">
    <!--Reste du code -->
   <br /><br />
   <!-- Tableau d’affichage -->
@@ -122,8 +120,8 @@
         </tr>
       </tbody>
     </table>
-    <button class="btn btn-primary position-absolute end-0" routerLink="/gallery">
-      Voir Gallery
+    <button class="btn btn-primary" routerLink="/table">
+      Affichage des projets ou pas
     </button>
   </div>
   <br><br><br>  <br><br><br>
