@@ -75,7 +75,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of projetData | async">
-          <td class="col">{{ data.createdAt }} </td>
+          <td class="col">{{ data.createdAt | date: 'd MMMM yyyy' }} </td>
           <td class="col">{{ data.titre }}</td>
           <td
             style="

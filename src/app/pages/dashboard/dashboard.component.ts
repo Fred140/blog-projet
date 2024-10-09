@@ -18,18 +18,21 @@ import { AuthService } from '../../services/auth.service';
 import { GalleryService } from '../../services/gallery.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(), DatePipe],
   imports: [MatFormFieldModule, MatSelectModule, MatInputModule, ReactiveFormsModule,
     FormsModule, MatIconModule, MatDividerModule, MatButtonModule, CommonModule, MatDatepickerModule, RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
+
 export class DashboardComponent {
   projetForm: FormGroup;
   selectedFile: any;
