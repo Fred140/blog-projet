@@ -112,10 +112,9 @@
               Delete
             </button>
             <button
-              *ngIf="data?.id"
               type="button"
               class="btn btn-secondary"
-              (click)="navigateToDetails(data.id!)"
+              [routerLink]="['/details', data.id]"
             >
               Details
             </button>

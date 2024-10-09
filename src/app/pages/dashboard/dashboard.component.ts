@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
 import { Projet } from '../../models/projet.model';
 import { AuthService } from '../../services/auth.service';
 import { GalleryService } from '../../services/gallery.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 
@@ -25,7 +25,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [MatFormFieldModule, MatSelectModule, MatInputModule, ReactiveFormsModule,
-    FormsModule, MatIconModule, MatDividerModule, MatButtonModule, CommonModule, MatDatepickerModule],
+    FormsModule, MatIconModule, MatDividerModule, MatButtonModule, CommonModule, MatDatepickerModule, RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -73,9 +73,10 @@ export class DashboardComponent {
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
-  onSubmit() {
-    console.log(this.projetForm.value);
-  }
+  //onSubmit() {
+//console.log(this.projetForm.value);
+//}
+
  // Ajoutez ce code
  saveData() {
     if (this.projetForm.valid) {
@@ -126,6 +127,6 @@ export class DashboardComponent {
       this.isEditing = false;
     }
   navigateToDetails(id: string) {
-    this.router.navigate(['/image-details', id]);
+    this.router.navigate(['/details:id']);
   }
 }

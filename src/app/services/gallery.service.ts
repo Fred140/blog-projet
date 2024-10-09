@@ -13,12 +13,12 @@ export class GalleryService {
 
    // Sauvegarder ou mettre à jour une photo
    async saveProjet(projet: Projet): Promise<void> {
-    const photosCollection = collection(this.firestore, 'projet');
+    const projetsCollection = collection(this.firestore, 'projet');
     if (projet.id) {
-      const photoRef = doc(photosCollection, projet.id);
+      const photoRef = doc(projetsCollection, projet.id);
       return await setDoc(photoRef, projet, { merge: true });
     } else {
-      return await setDoc(doc(photosCollection), projet);
+      return await setDoc(doc(projetsCollection), projet);
     }
   }
   // Récupérer toutes les photos
@@ -30,4 +30,16 @@ export class GalleryService {
     const projetRef = doc(this.firestore, 'projet', projetId);
     return await deleteDoc(projetRef);
   }
+
+     // Aimer une photo
+     async likeProjet(projet: Projet): Promise<void> {
+      if (projet.id) {
+        const projetRef = doc(this.firestore, 'projet', projet.id);
+        return await updateDoc(projetRef, {
+          likes: increment(1)
+        });
+      } else {
+        console.error('Cannot like a projet without ID');
+      }
+    }
 }
