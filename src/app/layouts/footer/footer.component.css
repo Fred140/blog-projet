@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* footer.component.css */
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-handset {
+  font-size: 12px;
+  height: 27px;
+  padding: 2px;
+}
+
+.footer-web {
+  font-size: 16px;
+}
+
+

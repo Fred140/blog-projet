@@ -8,12 +8,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, MatButtonModule, MatCardModule, CommonModule, FormsModule],
+  imports: [RouterLink, MatButtonModule, MatCardModule, CommonModule, FormsModule, MatGridListModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 
@@ -24,7 +25,6 @@ export class HomeComponent {
   visible?: true;
   galleryService: any;
   visibleProjets: Projet[] = [];
-
 
 
 
