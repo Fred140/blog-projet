@@ -39,7 +39,7 @@ export class HomeComponent {
     this.galleryService.likeProjet(projet);
   }
   navigateToDetails(id: string) {
-    this.router.navigate(['/details', id]);
+    this.router.navigate(['/details:id', id]);
   }
 
   // Charger uniquement les projets visibles

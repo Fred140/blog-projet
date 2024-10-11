@@ -1,11 +1,14 @@
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  grid-gap: 10px;
 }
 
 .example-card {
-  margin: 8px;
+  margin: 5px;
+  object-fit: cover;
+  height: auto;
+  width: auto;
 }
 
 .example-header-image {
@@ -24,3 +27,5 @@
 mat-card-title {
   color: #007bff;
 }
+
+

@@ -6,9 +6,14 @@
 
 <div class="container">
 <mat-card class="example-card" *ngFor="let projet of visibleProjets" appearance="outlined">
-  <mat-card-header>
+  <mat-card-header  style="
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+">
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ projet!.titre }}</mat-card-title>
+    <mat-card-title>{{ projet.titre }}</mat-card-title>
   </mat-card-header>
     <img class="card-img-top" [src]=" projet.imageUrl ? projet.imageUrl : 'https://via.placeholder.com/200'">
   <mat-card-content>
@@ -27,13 +32,20 @@
     <small>Créé le {{ projet.createdAt }}</small>
     &nbsp;
     &nbsp;
-    <button mat-button style=
+    <a mat-button style=
     "background-color:blue;
-     color:white">DETAIL</button>
+     color:white" [routerLink]="['/details', projet.id]">DETAIL</a>
      &nbsp;
     <button mat-button style=
     "background-color:green;
      color:white"> SHARE</button>
+      &nbsp;
+      <button
+      class="btn btn-danger position-absolute-end-0" style="width: 100px; height: 40px; margin: auto; padding: auto ;"
+      (click)="onLike(projet)"
+    >
+<small><i class="bi bi-hand-thumbs-up-fill"> {{ projet.likes }}</i></small>
+     </button>
   </mat-card-actions>
 </mat-card>
 </div>

@@ -1,13 +1,4 @@
 
 
-@media all and (max-width: 720px) {
-   .navbar{
-    width: 915px;
-   }
-}
 
-@media all and (max-width: 1280px) {
-  .navbar{
-   width: 915px;
-  }
-}
+
