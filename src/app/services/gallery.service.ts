@@ -11,7 +11,7 @@ export class GalleryService {
 
   constructor(private firestore: Firestore) { }
 
-   // Sauvegarder ou mettre à jour une photo
+   // Sauvegarder ou mettre à jour un projet
    async saveProjet(projet: Projet): Promise<void> {
     const projetsCollection = collection(this.firestore, 'projet');
     if (projet.id) {
@@ -21,17 +21,17 @@ export class GalleryService {
       return await setDoc(doc(projetsCollection), projet);
     }
   }
-  // Récupérer toutes les photos
+  // Récupérer tous les projets
   getProjet(): Observable<Projet[]> {
     return collectionData(collection(this.firestore, 'projet'), { idField: 'id' }) as Observable<Projet[]>;
   }
-  // Supprimer une photo
+  // Supprimer un projet
   async deleteProjet(projetId: string): Promise<void> {
     const projetRef = doc(this.firestore, 'projet', projetId);
     return await deleteDoc(projetRef);
   }
 
-     // Aimer une photo
+     // Aimer un projet
      async likeProjet(projet: Projet): Promise<void> {
       if (projet.id) {
         const projetRef = doc(this.firestore, 'projet', projet.id);
@@ -59,5 +59,10 @@ export class GalleryService {
    async updateProjetVisibility(projetId: string, visible: boolean): Promise<void> {
     const projetDoc = doc(this.firestore, 'projet', projetId);
     await updateDoc(projetDoc, { visible });
+  }
+
+  updateProjet(id: string, data: Partial<Projet>) {
+    const projetDoc = doc(this.firestore, `projets/$(id)`);
+    return updateDoc(projetDoc, data);
   }
 }

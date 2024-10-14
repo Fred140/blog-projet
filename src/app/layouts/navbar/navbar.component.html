@@ -21,7 +21,8 @@
           <a type="button" class="nav-link" routerLink="/gallery-projet">Gallery</a>
         </li>
       </ul>
-        <button class="btn btn-primary" type="button" routerLink="/login">Connexion</button>
+        <button *ngIf="!isLoggedIn" class="btn btn-primary" type="button">connexion</button>
+        <button *ngIf="isLoggedIn" class="btn btn-primary" type="button" (click)="logout()">Déconnexion</button>
     </div>
   </div>
 </nav>
