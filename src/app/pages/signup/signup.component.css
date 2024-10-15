@@ -39,7 +39,7 @@ html{
 }
 
 .testbox {
-  margin: 60px auto;
+  margin: 30px auto;
   width: 343px;
   height: 464px;
   -webkit-border-radius: 8px/7px;
@@ -137,3 +137,7 @@ a.button:hover {
   margin-top: 1em;
   text-align: center;
 }
+
+@media only screen and (min-width : 768px) and (max-width : 991px) and (orientation : portrait) {
+
+  }

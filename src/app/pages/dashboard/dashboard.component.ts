@@ -12,7 +12,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
+import { UserService } from '../../services/user.service';
 import { Observable } from 'rxjs';
 import { Projet } from '../../models/projet.model';
 import { AuthService } from '../../services/auth.service';
@@ -37,8 +37,9 @@ import { MatSort } from '@angular/material/sort';
 })
 
 
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   projets: Projet[] = [];
+  Projets: any[] = [];
   projetForm: FormGroup;
   selectedFile: any;
   isEditing: boolean = false;
@@ -48,7 +49,8 @@ export class DashboardComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private galleryService: GalleryService
+    private galleryService: GalleryService,
+    private userservice: UserService
     ) {
     this.projetForm = this.fb.group({
       id: [null],
@@ -61,7 +63,8 @@ export class DashboardComponent {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+   // this.Projets = await this.userservice.getProjetsByUser(); // Récupérer les projets de l'utilisateur connecté
     this.getData();
   }
 
