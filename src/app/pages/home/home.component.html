@@ -32,20 +32,13 @@
     <small>Créé le : &nbsp;{{ projet.createdAt }}</small>
     &nbsp;
     &nbsp;
-    <a mat-button style=
-    "background-color:blue;
-     color:white" [routerLink]="['/details', projet.id]">DETAIL</a>
-     &nbsp;
-    <button mat-button style=
-    "background-color:green;
-     color:white"> SHARE</button>
+    <div class="position-absolute end-0">
+      <a  mat-button style=
+      "background-color:blue;
+       color:white" [routerLink]="['/details', projet?.id]">DETAIL</a>
+       &nbsp;
+    </div>
       &nbsp;
-      <button
-      class="btn btn-danger position-absolute-end-0" style="width: 100px; height: 40px; margin: auto; padding: auto ;"
-      (click)="onLike(projet)"
-    >
-<small><i class="bi bi-hand-thumbs-up-fill"> {{ projet.likes }}</i></small>
-     </button>
   </mat-card-actions>
 </mat-card>
 </div>

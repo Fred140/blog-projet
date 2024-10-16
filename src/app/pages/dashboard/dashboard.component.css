@@ -8,4 +8,10 @@
   width: 100%;
 }
 
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
 
+.mat-step {
+  margin: auto;
+}

@@ -8,6 +8,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { authGuard } from './services/auth.guard';
 
+
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, },
@@ -16,6 +17,6 @@ export const routes: Routes = [
   { path: 'table', component: TableComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'details/:id', component: DetailsComponent }
+  { path: 'details/:id', component: DetailsComponent },
 ];
 
