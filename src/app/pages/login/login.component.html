@@ -11,16 +11,17 @@
 					<input type="password" class="login__input" [(ngModel)]="password" name="password" placeholder="Password">
 				</div>
 				<button class="button login__submit" (click)="login()">
-					<span class="button__text" >Log In Now</span>
+					<span class="button__text" >Se connecter</span>
 					<i class="button__icon fas fa-chevron-right"></i>
 				</button>
 			</form>
 
 			<div class="social-login">
 				<h3>Pas de compte</h3>
-				<div class="social-icons">
-					<a href="/signup" class="text-white">Cliquer ici!</a>
-			</div>
+				<button class="button login__submit" routerLink="/signup">
+					<span class="button__text">Cliquer ici</span>
+          <i class="button__icon fas fa-chevron-right"></i>
+			</button>
 			</div>
 		</div>
 		<div class="screen__background">
