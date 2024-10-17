@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
@@ -7,6 +7,7 @@ import { GalleryService } from '../../services/gallery.service';
 import { Projet } from '../../models/projet.model';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { Location } from '@angular/common';
 
 
 
@@ -22,6 +23,7 @@ export class TableComponent  implements OnInit {
   displayedColumns: string[] = ['createdAt', 'titre', 'likes', 'visible'];
   dataSource = new MatTableDataSource<Projet>();
   projets: Projet[] = [];
+  location = inject(Location);
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -71,5 +73,10 @@ _updateChangeSubscription(projetId: string, showOnHomepage: boolean): Promise<vo
   } catch (error) {
     console.error('Erreur lors de la mise à jour', error);
   }
-}
+ }
+
+ back() {
+  this.location.back()
+ }
+
 }

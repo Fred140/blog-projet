@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -11,8 +12,8 @@ import { Firestore, doc, getDoc } from '@angular/fire/firestore';
   styleUrl: './details.component.css'
 })
 export class DetailsComponent implements OnInit {
-
-    projet: any;
+      projet: any;
+      location = inject(Location);
 
   constructor(private route: ActivatedRoute, private firestore: Firestore) { }
 
@@ -30,4 +31,8 @@ export class DetailsComponent implements OnInit {
       });
     }
   }
+
+   back() {
+    this.location.back()
+   }
 }

@@ -4,3 +4,9 @@
 .card .card-body {
   background-color: #e7e7e7;
 }
+
+.smooth {
+margin-top: 20px;
+margin-left: 50%;
+position:absolute;
+}
