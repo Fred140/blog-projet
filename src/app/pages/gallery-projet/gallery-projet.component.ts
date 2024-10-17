@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Firestore, collection, collectionData, doc, increment, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Router, RouterLink } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Projet } from '../../models/projet.model';

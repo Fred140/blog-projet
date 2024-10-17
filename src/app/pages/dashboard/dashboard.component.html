@@ -5,26 +5,41 @@
         <h2 class="mb-4 text-primary">Ajouter votre Projet</h2>
       </div>
 
-<form [formGroup]="projetForm" (ngSubmit)="saveData()"  class="example-form" >
-  <div class="form-group">
-  <mat-form-field class="example-full-width">
-    <mat-label>Titre du Projet</mat-label>
-    <input type="text" formControlName="titre" class="form-control" matInput placeholder="Ex. de projet" value="">
-    <div class="text-danger">{{ showErrorMessage("titre") }}</div>
-  </mat-form-field>
-</div>
+      <form
+        [formGroup]="projetForm"
+        (ngSubmit)="saveData()"
+        class="example-form"
+      >
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <mat-label>Titre du Projet</mat-label>
+            <input
+              type="text"
+              formControlName="titre"
+              class="form-control"
+              matInput
+              placeholder="Ex. de projet"
+              value=""
+            />
+            <div class="text-danger">{{ showErrorMessage("titre") }}</div>
+          </mat-form-field>
+        </div>
 
-<div class="form-group">
-  <mat-form-field class="example-full-width">
-    <mat-label>Description du projet</mat-label>
-    <textarea  type="textarea"
-    formControlName="description"
-    class="form-control" matInput placeholder="Ex. description du projet"></textarea>
-    <div class="text-danger">{{ showErrorMessage("description") }}</div>
-  </mat-form-field>
-</div>
-<div class="form-group mt-3">
-  <label>Veuillez indiquer la date de création:</label>
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <mat-label>Description du projet</mat-label>
+            <textarea
+              type="textarea"
+              formControlName="description"
+              class="form-control"
+              matInput
+              placeholder="Ex. description du projet"
+            ></textarea>
+            <div class="text-danger">{{ showErrorMessage("description") }}</div>
+          </mat-form-field>
+        </div>
+        <div class="form-group mt-3">
+          <label>Veuillez indiquer la date de création:</label>
           <input
             type="date"
             formControlName="createdAt"
@@ -33,105 +48,112 @@
           <div class="number-danger">
             {{ showErrorMessage("createdAt | date") }}
           </div>
-</div>
-<div class="text-danger mt-3">
-  <div class="mr-3"><i class="bi bi-exclamation-diamond"></i></div>
-  1-Valider Titre, Description et Date de création <br>
-  2-Appuyer sur bouton edit sur le tableau ci-dessous <br>
-  3-Choisisser la photo, cliquer sur n'importe quel champ titre ou autre, puis appuyer encore une fois sur Valider <br>
-  Le projet sera affiché sur la page Home et détail du projet <br>
-  sans cette manipulation, on ne peut voir l'image du projet sur détail. <br>
-</div>
-<div class="form-group mt-3">
-  <label for="file">Choisir photo : </label>
-  <input
-    type="file"
-    class="form-control-file"
-    id="file"
-    (change)="onFileSelected($event)"
-  />
-</div>
+        </div>
+        <div class="text-danger mt-3">
+          <div class="mr-3"><i class="bi bi-exclamation-diamond"></i></div>
+          1-Valider Titre, Description et Date de création <br />
+          2-Appuyer sur bouton edit sur le tableau ci-dessous <br />
+          3-Choisisser la photo, cliquer sur n'importe quel champ titre ou
+          autre, puis appuyer encore une fois sur Valider <br />
+          Le projet sera affiché sur la page Home et détail du projet <br />
+          sans cette manipulation, on ne peut voir l'image du projet sur détail.
+          <br />
+        </div>
+        <div class="form-group mt-3">
+          <label for="file">Choisir photo : </label>
+          <input
+            type="file"
+            class="form-control-file"
+            id="file"
+            (change)="onFileSelected($event)"
+          />
+        </div>
 
-
-<div class="form-group mt-3">
-
-    <div class="example-button-row">
-      <button   type="submit"
-      class="btn btn-primary"
-      [disabled]="!projetForm.valid || !projetForm.touched" mat-flat-button>Valider</button>
+        <div class="form-group mt-3">
+          <div class="example-button-row">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="!projetForm.valid || !projetForm.touched"
+              mat-flat-button
+            >
+              Valider
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-</div>
-</form>
+    <div class="container">
+      <!--Reste du code -->
+      <br /><br />
+      <!-- Tableau d’affichage -->
+      <div class="container flex">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="col">Date de création</th>
+              <th scope="col" class="col">Titre</th>
+              <th scope="col" class="col">Description</th>
+              <th scope="col" class="col">Image</th>
+              <th scope="col" class="col">Likes</th>
+              <th scope="col" class="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of projetData | async">
+              <td class="col">{{ data.createdAt | date : "d MMMM yyyy" }}</td>
+              <td class="col">{{ data.titre }}</td>
+              <td
+                style="
+                  max-width: 100px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                "
+                class="col"
+              >
+                {{ data.description }}
+              </td>
+              <!-- <td class="col">{{ data.description | truncate : 70 }}</td> -->
+              <td class="col">
+                <img [src]="data?.imageUrl" alt="Image" width="100" />
+              </td>
+              <td>{{ data.likes }}</td>
+              <td class="col">
+                <button
+                  type="button"
+                  class="btn btn-primary margin-left"
+                  (click)="editData(data)"
+                >
+                  Edit
+                </button>
+                &nbsp;
+                <button
+                  *ngIf="data?.id"
+                  type="button"
+                  class="btn btn-danger margin-left"
+                  (click)="deleteData(data.id!)"
+                  style="margin-right: 12px"
+                >
+                  Delete
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  [routerLink]="['/details', data.id]"
+                >
+                  Details
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-primary" routerLink="/table">
+          Affichage des projets ou pas
+        </button>
+      </div>
+      <br /><br /><br />
+      <br /><br /><br />
     </div>
-<div class="container">
-   <!--Reste du code -->
-  <br /><br />
-  <!-- Tableau d’affichage -->
-  <div class="container flex">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col" class="col">Date de création</th>
-          <th scope="col" class="col">Titre</th>
-          <th scope="col" class="col">Description</th>
-          <th scope="col" class="col">Image</th>
-          <th scope="col" class="col">Likes</th>
-          <th scope="col" class="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of projetData | async">
-          <td class="col">{{ data.createdAt | date: 'd MMMM yyyy' }} </td>
-          <td class="col">{{ data.titre }}</td>
-          <td
-            style="
-              max-width: 100px;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            "
-            class="col"
-          >
-            {{ data.description }}
-          </td>
-          <!-- <td class="col">{{ data.description | truncate : 70 }}</td> -->
-          <td class="col">
-            <img [src]="data?.imageUrl" alt="Image" width="100" />
-          </td>
-          <td>{{ data.likes }}</td>
-          <td class="col">
-            <button
-              type="button"
-              class="btn btn-primary margin-left"
-              (click)="editData(data)"
-            >
-              Edit
-            </button>
-            &nbsp;
-            <button
-              *ngIf="data?.id"
-              type="button"
-              class="btn btn-danger margin-left"
-              (click)="deleteData(data.id!)"
-              style="margin-right:12px;"
-            >
-              Delete
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              [routerLink]="['/details', data.id]"
-            >
-              Details
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <button class="btn btn-primary" routerLink="/table">
-      Affichage des projets ou pas
-    </button>
   </div>
-  <br><br><br>  <br><br><br>
-
-
+</div>

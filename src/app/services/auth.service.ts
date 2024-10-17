@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { getAuth, Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { onAuthStateChanged } from '@angular/fire/auth';
-import { BehaviorSubject, map, Observable } from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { BehaviorSubject, Observable } from 'rxjs';
+
 
 
 @Injectable({
@@ -38,16 +38,6 @@ export class AuthService {
   signIn(email: string, password: string): Promise<any> {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
-
- // signOut(): void {
-   // signOut(this.auth).then(() => {
-   //   localStorage.removeItem('user');
-  //    this.router.navigate(['login']);
- // }), (err: { message: any; }) => {
-  //    alert(err.message);
-  // };
-
-  //}
 
   getUser() {
     return this.user;

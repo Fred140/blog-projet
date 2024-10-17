@@ -1,42 +1,57 @@
-import { Component, ChangeDetectionStrategy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { getStorage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
-import { FormsModule } from  '@angular/forms' ;
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {provideNativeDateAdapter} from '@angular/material/core';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { UserService } from '../../services/user.service';
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from '@angular/fire/storage';
+import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatTableModule } from '@angular/material/table';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Observable } from 'rxjs';
 import { Projet } from '../../models/projet.model';
-import { AuthService } from '../../services/auth.service';
 import { GalleryService } from '../../services/gallery.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DatePipe } from '@angular/common';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   providers: [provideNativeDateAdapter(), DatePipe],
-  imports: [MatFormFieldModule, MatSelectModule, MatInputModule, ReactiveFormsModule,
-    FormsModule, MatIconModule, MatDividerModule, MatButtonModule, CommonModule,
-     MatDatepickerModule, RouterLink, MatTableModule, MatSlideToggleModule],
+  imports: [
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    CommonModule,
+    MatDatepickerModule,
+    RouterLink,
+    MatTableModule,
+    MatSlideToggleModule,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
-
 export class DashboardComponent implements OnInit {
   projets: Projet[] = [];
   Projets: any[] = [];
@@ -49,14 +64,20 @@ export class DashboardComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private galleryService: GalleryService,
-    private userservice: UserService
-    ) {
+    private galleryService: GalleryService
+  ) {
     this.projetForm = this.fb.group({
       id: [null],
       createdAt: ['', [Validators.required]],
       titre: ['', [Validators.required, Validators.minLength(7)]],
-      description: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(3000)]],
+      description: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(7),
+          Validators.maxLength(3000),
+        ],
+      ],
       imageUrl: [''],
       likes: [0],
       visible: ['false'],
@@ -64,10 +85,9 @@ export class DashboardComponent implements OnInit {
   }
 
   async ngOnInit() {
-   // this.Projets = await this.userservice.getProjetsByUser(); // Récupérer les projets de l'utilisateur connecté
+    // this.Projets = await this.userservice.getProjetsByUser(); // Récupérer les projets de l'utilisateur connecté
     this.getData();
   }
-
 
   hasError(fieldName: string, errorName: string) {
     const fieldErrors = this.projetForm.get(fieldName)?.errors;
@@ -90,11 +110,11 @@ export class DashboardComponent implements OnInit {
     this.selectedFile = event.target.files[0];
   }
   //onSubmit() {
-//console.log(this.projetForm.value);
-//}
+  //console.log(this.projetForm.value);
+  //}
 
- // Ajoutez ce code
- saveData() {
+  // Ajoutez ce code
+  saveData() {
     if (this.projetForm.valid) {
       const formData: Projet = this.projetForm.value;
       if (this.selectedFile) {
@@ -126,24 +146,32 @@ export class DashboardComponent implements OnInit {
   }
   deleteData(id: string) {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet élément?')) {
-      this.galleryService.deleteProjet(id)
+      this.galleryService
+        .deleteProjet(id)
         .then(() => {
           // Traitez le succès de la suppression ici, par exemple en rafraîchissant la liste.
         })
-        .catch(error => {
+        .catch((error) => {
           // Gérez les erreurs en affichant un message d’erreur.
-        console.error("Error deleting photo:", error);
-        alert("Une erreur s’est produite lors de la suppression de la photo.");
-      });
+          console.error('Error deleting photo:', error);
+          alert(
+            'Une erreur s’est produite lors de la suppression de la photo.'
+          );
+        });
     }
   }
   resetForm() {
-      this.projetForm.reset({ likes: 0, imageUrl: '', description: '', titre: '', createdAt: '' });
-      this.selectedFile = null;
-      this.isEditing = false;
-    }
+    this.projetForm.reset({
+      likes: 0,
+      imageUrl: '',
+      description: '',
+      titre: '',
+      createdAt: '',
+    });
+    this.selectedFile = null;
+    this.isEditing = false;
+  }
   navigateToDetails(id: string) {
     this.router.navigate(['/details:id']);
   }
-
 }
